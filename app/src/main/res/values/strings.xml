@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Expense Tracker</string>
+    <string name="category_hint">Enter a category for the expense.</string>
+    <string name="amount_hint">Enter the amount for the expense.</string>
+    <string name="expense_title_label">Expense</string>
+    <string name="new_crime">New Crime</string>
+</resources>
