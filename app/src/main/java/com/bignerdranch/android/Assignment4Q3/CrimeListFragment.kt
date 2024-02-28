@@ -55,6 +55,9 @@ class CrimeListFragment : Fragment() {
                 CrimeListFragmentDirections.buttonPickDate(Date())
             )
         }
+        binding.buttonClearFilter.setOnClickListener {
+            crimeListViewModel.clearFilter()
+        }
         binding.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
 
         return binding.root

@@ -47,6 +47,12 @@ class CrimeListViewModel : ViewModel() {
         }
     }
 
+    fun clearFilter() {
+        _crimes.update {
+            it.copy(choose_category = "", choose_date = Date(0), crimeList_filter = it.crimeList.toMutableList())
+        }
+    }
+
     suspend fun addCrime(crime: Crime) {
         crimeRepository.addCrime(crime)
     }

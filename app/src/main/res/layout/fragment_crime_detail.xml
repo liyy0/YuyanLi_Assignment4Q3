@@ -35,4 +35,11 @@
         android:layout_height="wrap_content"
         tools:text="Wed May 11 11:56 EST 2022" />
 
+    <TextView
+        android:id="@+id/number_check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:text="" />
+
 </LinearLayout>

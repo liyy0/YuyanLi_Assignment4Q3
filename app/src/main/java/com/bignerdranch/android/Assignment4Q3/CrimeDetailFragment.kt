@@ -59,14 +59,17 @@ class CrimeDetailFragment : Fragment() {
                 crimeDetailViewModel.updateCrime { oldCrime ->
                     // if input text is not a number, then set amount to 0
                     if (text.toString().toDoubleOrNull() == null) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Please enter a valid number",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "Please enter a valid number",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+                        binding.numberCheck.text = "Invalid spent amount! Will set amount to 0."
                         oldCrime.copy(amount = "0")
-                    } else
-                    oldCrime.copy(amount = text.toString())
+                    } else {
+                        binding.numberCheck.text = ""
+                        oldCrime.copy(amount = text.toString())
+                    }
                 }
             }
 
