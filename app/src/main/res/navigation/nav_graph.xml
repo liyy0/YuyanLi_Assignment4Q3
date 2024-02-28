@@ -13,6 +13,9 @@
         <action
             android:id="@+id/show_crime_detail"
             app:destination="@id/crimeDetailFragment" />
+        <action
+            android:id="@+id/buttonPickDate"
+            app:destination="@id/datePickerFragment" />
     </fragment>
     <fragment
         android:id="@+id/crimeDetailFragment"

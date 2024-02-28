@@ -7,7 +7,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -42,7 +44,17 @@ class CrimeListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCrimeListBinding.inflate(inflater, container, false)
-
+        binding.editTextCategory.doOnTextChanged { text, _, _, _ ->
+            crimeListViewModel.filterCrimes(
+                category = text.toString(),
+                date = crimeListViewModel.crimes.value.choose_date
+            )
+        }
+        binding.buttonPickDate.setOnClickListener {
+            findNavController().navigate(
+                CrimeListFragmentDirections.buttonPickDate(Date())
+            )
+        }
         binding.crimeRecyclerView.layoutManager = LinearLayoutManager(context)
 
         return binding.root
@@ -55,7 +67,7 @@ class CrimeListFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 crimeListViewModel.crimes.collect { crimes ->
                     binding.crimeRecyclerView.adapter =
-                        CrimeListAdapter(crimes) { crimeId ->
+                        CrimeListAdapter(crimes.crimeList_filter) { crimeId ->
                             findNavController().navigate(
                                 CrimeListFragmentDirections.showCrimeDetail(crimeId)
 
@@ -63,6 +75,17 @@ class CrimeListFragment : Fragment() {
                         }
                 }
             }
+        }
+
+        setFragmentResultListener(
+            DatePickerFragment.REQUEST_KEY_DATE
+        ) { _, bundle ->
+            val newDate =
+                bundle.getSerializable(DatePickerFragment.BUNDLE_KEY_DATE) as Date
+            crimeListViewModel.filterCrimes(
+                category = crimeListViewModel.crimes.value.choose_category,
+                date = newDate
+            )
         }
     }
 
